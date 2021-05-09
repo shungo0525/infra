@@ -1,4 +1,4 @@
-ruby_version: 2.7.1
+ruby_version: 3.0.1
 app_name: infra
 #deploy_user: ec2_user
 #deploy_user_password:

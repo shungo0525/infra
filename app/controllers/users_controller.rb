@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def index
-    render json: {users: "shungo"}
+    render json: {test: "shungo", user_count: User.count}
   end
 end

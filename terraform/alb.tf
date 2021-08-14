@@ -1,6 +1,6 @@
 // ALBの定義
 resource "aws_lb" "for_webserver" {
-  name               = "webserver-alb"
+  name               = "${var.app_name}-alb-${var.environment}"
   internal           = false             #falseを指定するとインターネット向け,trueを指定すると内部向け
   load_balancer_type = "application"
 
@@ -29,6 +29,9 @@ resource "aws_security_group" "alb" {
     to_port    = 0
     protocol   = "-1"
     cidr_blocks=["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "${var.app_name}-security-group-for-alb-${var.environment}"
   }
 }
 
@@ -68,6 +71,7 @@ resource "aws_lb_target_group" "for_webserver" {
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
 
+  // ヘルスチェックのパスを指定する
   health_check {
     path        = "/index.html"
   }

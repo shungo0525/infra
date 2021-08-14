@@ -3,7 +3,7 @@ resource "aws_subnet" "private_db_a" {
   cidr_block        = "10.0.3.0/24"
   availability_zone = "ap-northeast-1a"
   tags = {
-    Name = "tf_private_db1"
+    Name = "${var.app_name}-private-subnet-db-a-${var.environment}"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_subnet" "private_db_c" {
   cidr_block        = "10.0.4.0/24"
   availability_zone = "ap-northeast-1c"
   tags = {
-    Name = "tf_private_db2"
+    Name = "${var.app_name}-private-subnet-db-c-${var.environment}"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   tags = {
-    Name = "test_db"
+    Name = "${var.app_name}-security-group-for-db-${var.environment}"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_db_subnet_group" "db_subnet" {
   subnet_ids  = [aws_subnet.private_db_a.id, aws_subnet.private_db_c.id]
 
   tags = {
-    Name = "test_db_subnet"
+    Name = "${var.app_name}-subnet-group-${var.environment}"
   }
 }
 
@@ -60,6 +60,6 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids      = [aws_security_group.db.id]
 
   tags = {
-    Name = "tf_instance"
+    Name = "${var.app_name}-db-instance-${var.environment}"
   }
 }

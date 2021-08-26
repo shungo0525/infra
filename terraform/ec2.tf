@@ -7,7 +7,7 @@ resource "aws_instance" "a" {
   instance_type               = "t3.nano"
   key_name                    = "${var.app_name}-key-pair" // AWSコンソールで生成したキーペアの名前
   subnet_id                   = aws_subnet.public_1a.id
-  security_groups             = [aws_security_group.test.id]
+  vpc_security_group_ids      = [aws_security_group.test.id]
   associate_public_ip_address = true
 
   tags = {
@@ -20,7 +20,7 @@ resource "aws_instance" "c" {
   instance_type               = "t3.nano"
   key_name                    = "${var.app_name}-key-pair" // AWSコンソールで生成したキーペアの名前
   subnet_id                   = aws_subnet.public_1c.id
-  security_groups             = [aws_security_group.test.id]
+  vpc_security_group_ids      = [aws_security_group.test.id]
   associate_public_ip_address = true
 
   tags = {
